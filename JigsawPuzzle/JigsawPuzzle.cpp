@@ -3,22 +3,53 @@
 
 #include "raylib.h"
 
+#define PUZZLE_PIECES 3
+
+struct PuzzlePiece
+{
+    Rectangle sourceOriginal;
+    Vector2 piecePosition;
+};
+
 // Funkce pro inicializaci hry
 void InitGame() 
 {
     // Inicializace herních promìnných a objektù
 }
 
-void LoadingPicture(int GetScreenWidth, int GetScreenHeight, Image OutImage)
+void LoadingPicture(Image OutImage)
 {
     // Loading piscture
     OutImage = LoadImage("resources/Dragon.png");     // Loaded in CPU memory (RAM)
-    ImageResize(&OutImage, GetScreenWidth, GetScreenHeight);
 }
 
-Texture2D LoadingTexture(Image GetPicture)
+void SplitPictureToJigsaw(PuzzlePiece pieces[], Image GetImage)
 {
-    return LoadTextureFromImage(GetPicture);          // Image converted to texture, GPU memory (VRAM)
+    int pieceWidth = GetImage.width / PUZZLE_PIECES;
+    int pieceHeight = GetImage.height / PUZZLE_PIECES;
+
+    for (int i = 0; i < PUZZLE_PIECES; i++)
+    {
+        for (int j = 0; j < PUZZLE_PIECES; j++)
+        {
+            int index = i * (PUZZLE_PIECES + j);
+
+            pieces[index].sourceOriginal = { (float)i * pieceWidth, (float)j * pieceHeight,(float)pieceWidth,(float)pieceHeight };
+
+            pieces[index].piecePosition = { (float)i * pieceWidth, (float)j * pieceHeight };
+        }
+    }
+}
+
+void LoadingTexture(Image GetPicture)
+{
+    LoadTextureFromImage(GetPicture);          // Image converted to texture, GPU memory (VRAM)
+}
+
+Texture2D SetTexture( Image GetPicture)
+{
+    Texture2D GetTextureImage = LoadTextureFromImage(GetPicture);
+    return GetTextureImage;
 }
 
 // Funkce pro aktualizaci hry
@@ -34,9 +65,9 @@ void DrawGame()
     //LoadingPicture();
 }
 
-void FullscreenMode(int GetCurrentDisplay)
+void FullscreenMode()
 {
-    SetWindowSize(GetMonitorWidth(GetCurrentDisplay), GetMonitorHeight(GetCurrentDisplay));
+    SetWindowSize(GetMonitorWidth(GetCurrentMonitor()), GetMonitorHeight(GetCurrentMonitor()));
 }
 
 
@@ -47,15 +78,20 @@ int main()
 
     InitWindow(screenWidth, screenHeight, "Jigsaw Puzzle");
 
-   // LoadingPicture(screenWidth, screenHeight, OutImage);
-    
+    Image image = LoadImage("resources/Dragon.png");     // Loaded in CPU memory (RAM)
 
-    //UnloadImage(image);   // Once image has been converted to texture and uploaded to VRAM, it can be unloaded from RAM
+    LoadingPicture(image);
+    LoadingTexture(image);
+    //ImageResize(&image, screenWidth, screenHeight);
+    Texture2D texture = SetTexture(image);
+    UnloadImage(image);   // Once image has been converted to texture and uploaded to VRAM, it can be unloaded from RAM
+
+    PuzzlePiece puzzles[PUZZLE_PIECES * PUZZLE_PIECES];
+    SplitPictureToJigsaw(puzzles,image);
 
     SetTargetFPS(60);
 
     // Inicializace raylib a nastavení parametrù okna
-    
 
     // Inicializace hry
     InitGame();
