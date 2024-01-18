@@ -17,10 +17,11 @@ void InitGame()
     // Inicializace herních promìnných a objektù
 }
 
-void LoadingPicture(Image OutImage)
+Image LoadingPicture(Image OutImage)
 {
     // Loading piscture
     OutImage = LoadImage("resources/Dragon.png");     // Loaded in CPU memory (RAM)
+    return OutImage;
 }
 
 void SplitPictureToJigsaw(PuzzlePiece pieces[], Image GetImage)
@@ -78,9 +79,11 @@ int main()
 
     InitWindow(screenWidth, screenHeight, "Jigsaw Puzzle");
 
-    Image image = LoadImage("resources/Dragon.png");     // Loaded in CPU memory (RAM)
+    Image puzzleImage;
 
-    LoadingPicture(image);
+    Image image = LoadImage("resources/Arrow.png");     // Loaded in CPU memory (RAM)
+
+    //LoadingPicture(image);
     LoadingTexture(image);
     //ImageResize(&image, screenWidth, screenHeight);
     Texture2D texture = SetTexture(image);
@@ -106,10 +109,16 @@ int main()
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        DrawTexture(texture, screenWidth / 2 - texture.width / 2, screenHeight / 2 - texture.height / 2, WHITE);
+        //DrawTexture(texture, screenWidth / 2 - texture.width / 2, screenHeight / 2 - texture.height / 2, WHITE);
 
+        DrawTextureRec(texture, Rectangle{0,0, (float)image.width,(float)image.height}, Vector2{0, 0}, WHITE);
 
-        DrawGame();
+        for (int i = 0; i < PUZZLE_PIECES * PUZZLE_PIECES; i++)
+        {
+            DrawTextureRec(texture, puzzles[i].sourceOriginal, puzzles[i].piecePosition, WHITE);
+        }
+
+        //DrawGame();
 
         EndDrawing();
     }
