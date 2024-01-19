@@ -72,12 +72,13 @@ void FullscreenMode()
 }
 
 
-int main() 
+int main()
 {
     const int screenWidth = 1260;
     const int screenHeight = 800;
 
     InitWindow(screenWidth, screenHeight, "Jigsaw Puzzle");
+    //FullscreenMode();
 
     Image puzzleImage;
 
