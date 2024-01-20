@@ -3,7 +3,7 @@
 
 #include "raylib.h"
 
-#define PUZZLE_PIECES 3
+#define PUZZLE_PIECES 9
 
 struct PuzzlePiece
 {
@@ -33,11 +33,11 @@ void SplitPictureToJigsaw(PuzzlePiece pieces[], Image GetImage)
     {
         for (int j = 0; j < PUZZLE_PIECES; j++)
         {
-            int index = i * (PUZZLE_PIECES + j);
+            int index = i * PUZZLE_PIECES + j;
 
             pieces[index].sourceOriginal = { (float)i * pieceWidth, (float)j * pieceHeight,(float)pieceWidth,(float)pieceHeight };
 
-            pieces[index].piecePosition = { (float)i * pieceWidth, (float)j * pieceHeight };
+            pieces[index].piecePosition = { (float)i * pieceWidth + (float)GetImage.width, (float)j * pieceHeight + (float)GetImage.height};
         }
     }
 }
@@ -78,13 +78,10 @@ int main()
     const int screenHeight = 800;
 
     InitWindow(screenWidth, screenHeight, "Jigsaw Puzzle");
-    //FullscreenMode();
-
-    Image puzzleImage;
-
+    
     Image image = LoadImage("resources/Arrow.png");     // Loaded in CPU memory (RAM)
 
-    //LoadingPicture(image);
+    LoadingPicture(image);
     LoadingTexture(image);
     //ImageResize(&image, screenWidth, screenHeight);
     Texture2D texture = SetTexture(image);

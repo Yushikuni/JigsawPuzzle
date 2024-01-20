@@ -1,5 +1,4 @@
 ﻿  JigsawPuzzle.cpp
-C:\Users\Atlan\OneDrive\Herni-vyvoj\JigsawPuzzle\JigsawPuzzle\JigsawPuzzle.cpp(82,11): warning C4101: 'puzzleImage': unreferenced local variable
   JigsawPuzzle.vcxproj -> C:\Users\Atlan\OneDrive\Herni-vyvoj\JigsawPuzzle\x64\Debug\JigsawPuzzle.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.
