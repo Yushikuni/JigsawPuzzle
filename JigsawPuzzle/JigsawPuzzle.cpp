@@ -5,6 +5,10 @@
 
 #define PUZZLE_PIECES 4
 
+#define PUZZLE_BOARD 16
+
+#define PICTURE 4
+
 struct PuzzlePiece
 {
     Rectangle sourceOriginal;
@@ -15,6 +19,16 @@ struct PuzzlePiece
 void InitGame() 
 {
     // Inicializace herních promìnných a objektù
+
+
+    int currentMovement = 0;
+    int countAllPieces = 0;
+    int currentPiecesCorrectlyPlaced = 0;
+
+    countAllPieces = PUZZLE_PIECES * PUZZLE_PIECES;
+
+    // Show original picture at side of game window
+
 }
 
 Image LoadingPicture(Image OutImage)
@@ -33,7 +47,7 @@ void SplitPictureToJigsaw(PuzzlePiece pieces[], Image GetImage)
     {
         for (int j = 0; j < PUZZLE_PIECES; j++)
         {
-            int index = i * PUZZLE_PIECES + j;
+            int index = (i * PUZZLE_PIECES) + j;
 
             pieces[index].sourceOriginal = { (float)i * pieceWidth, (float)j * pieceHeight,(float)pieceWidth,(float)pieceHeight };
 
@@ -95,7 +109,7 @@ int main()
     // Inicializace raylib a nastavení parametrù okna
 
     // Inicializace hry
-    InitGame();
+    //InitGame();
 
     // Hlavní herní smyèka
     while (!WindowShouldClose()) 
@@ -109,7 +123,7 @@ int main()
 
         //DrawTexture(texture, screenWidth / 2 - texture.width / 2, screenHeight / 2 - texture.height / 2, WHITE);
 
-        DrawTextureRec(texture, Rectangle{0,0, (float)image.width,(float)image.height}, Vector2{0, 0}, WHITE);
+        //DrawTextureRec(texture, Rectangle{0,0, (float)image.width,(float)image.height}, Vector2{0, 0}, WHITE);
 
         for (int i = 0; i < PUZZLE_PIECES * PUZZLE_PIECES; i++)
         {
