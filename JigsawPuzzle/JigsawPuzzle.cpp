@@ -3,7 +3,7 @@
 
 #include "raylib.h"
 
-#define PUZZLE_PIECES 9
+#define PUZZLE_PIECES 4
 
 struct PuzzlePiece
 {
