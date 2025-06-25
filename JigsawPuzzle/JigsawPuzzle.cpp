@@ -4,9 +4,7 @@
 #include "raylib.h"
 
 #define PUZZLE_PIECES 4
-
 #define PUZZLE_BOARD 16
-
 #define PICTURE 4
 
 struct PuzzlePiece
